@@ -1,35 +1,39 @@
 # Formula: (x1 * x2 * ... * xn)^(1/n)
 
-def multiplicacion_recursiva( set_de_datos_a_multiplicar ):
+import csv
+
+def multiplicacion_recursiva( set_de_datos_a_multiplicar, size_window ):
 	
-	datos_procesados = 0
-	cantidad_de_datos = 0
 	datos_multiplicados = 1
-	multiplicacion_de_30 = []
+	multi_30_numeros = []
+
+	i = 0
 	
 	for x in set_de_datos:
 
-		datos_procesados += 1
-		cantidad_de_datos += 1
-		datos_multiplicados = float(x) * datos_multiplicados
+		for y in set_de_datos[i:i+size_window]:
 
-		if (datos_procesados == 30):
+			datos_multiplicados = datos_multiplicados * float(y)
+		
+		multi_30_numeros.append(datos_multiplicados) # Tiene la multi de los 30 numeros
+		datos_multiplicados = 1 # Reinicia datos_multiplicados
+		i = i + 1 # suma uno en el contador
 
-			multiplicacion_de_30.append(datos_multiplicados)
-			datos_procesados = 0
-			datos_multiplicados = 1
+	#print(multi_30_numeros)
 
-	return multiplicacion_de_30
+	return potencia_de_nuemeros_multiplicados( multi_30_numeros, size_window )
 
 
-def potencia_de_nuemeros_multiplicados( set_de_datos_multiplicados ):
+def potencia_de_nuemeros_multiplicados( set_de_datos_multiplicados, size_window ):
 	
 	numeros_potenciados = []
-	potencia = 1/float(30)
+	potencia = 1/float(size_window)
 
 	for x in set_de_datos_multiplicados:
 
 		numeros_potenciados.append(x**(potencia))
+
+	#print(numeros_potenciados)
 
 	return numeros_potenciados
 
@@ -49,12 +53,15 @@ with open('datos.txt') as file:
     set_de_datos = file.readlines()
 
 # you may also want to remove whitespace characters like `\n` at the end of each line
-set_de_datos = [x.strip() for x in set_de_datos] 
+set_de_datos = [x.strip() for x in set_de_datos]
 
-print(multiplicacion_recursiva(set_de_datos))
-print(potencia_de_nuemeros_multiplicados(multiplicacion_recursiva(set_de_datos)))
-print(sumatoria_final(potencia_de_nuemeros_multiplicados(multiplicacion_recursiva(set_de_datos))))
+datos = multiplicacion_recursiva(set_de_datos, 30)
+
+#print(multiplicacion_recursiva(set_de_datos, 30))
+#print(potencia_de_nuemeros_multiplicados(multiplicacion_recursiva(set_de_datos)))
+#print(sumatoria_final(potencia_de_nuemeros_multiplicados(multiplicacion_recursiva(set_de_datos))))
 
 
-
-
+thefile = open('test.txt', 'w')
+for item in datos:
+  thefile.write("%s\n" % item)
