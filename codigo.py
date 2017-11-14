@@ -1,7 +1,3 @@
-# Formula: (x1 * x2 * ... * xn)^(1/n)
-
-import csv
-
 def multiplicacion_recursiva( set_de_datos_a_multiplicar, size_window ):
 	
 	datos_multiplicados = 1
@@ -37,31 +33,10 @@ def potencia_de_nuemeros_multiplicados( set_de_datos_multiplicados, size_window 
 
 	return numeros_potenciados
 
-
-def sumatoria_final( set_de_datos_potenciados ):
-
-	valor_final = 1
-
-	for x in set_de_datos_potenciados:
-
-		valor_final = x + valor_final
-
-	return valor_final
-
-
 with open('datos.txt') as file:
     set_de_datos = file.readlines()
-
-# you may also want to remove whitespace characters like `\n` at the end of each line
 set_de_datos = [x.strip() for x in set_de_datos]
 
 datos = multiplicacion_recursiva(set_de_datos, 30)
 
-#print(multiplicacion_recursiva(set_de_datos, 30))
-#print(potencia_de_nuemeros_multiplicados(multiplicacion_recursiva(set_de_datos)))
-#print(sumatoria_final(potencia_de_nuemeros_multiplicados(multiplicacion_recursiva(set_de_datos))))
-
-
-thefile = open('test.txt', 'w')
-for item in datos:
-  thefile.write("%s\n" % item)
+print(datos)
