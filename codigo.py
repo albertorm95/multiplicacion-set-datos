@@ -32,11 +32,15 @@ def potencia_de_nuemeros_multiplicados( set_de_datos_multiplicados, size_window 
 	#print(numeros_potenciados)
 
 	return numeros_potenciados
+	
 
 with open('datos.txt') as file:
     set_de_datos = file.readlines()
+
 set_de_datos = [x.strip() for x in set_de_datos]
 
 datos = multiplicacion_recursiva(set_de_datos, 30)
 
-print(datos)
+thefile = open('test.txt', 'w')
+for item in datos:
+  thefile.write("%s\n" % item)
